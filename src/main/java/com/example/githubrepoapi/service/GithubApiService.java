@@ -26,6 +26,7 @@ public class GithubApiService {
         return Arrays.stream(
                         webClient.get()
                                 .uri("repos/" + username + "/" + branchName + "/branches")
+                                .header("X-GitHub-Api-Version:2022-11-28")
                                 .retrieve()
                                 .bodyToMono(Branch[].class)
                                 .block())
@@ -39,6 +40,7 @@ public class GithubApiService {
         List<Repo> repos = Arrays.stream(
                         webClient.get()
                                 .uri("users/" + username + "/repos")
+                                .header("X-GitHub-Api-Version:2022-11-28")
                                 .retrieve()
                                 .onStatus(
                                         Predicate.isEqual(HttpStatus.NOT_FOUND),
